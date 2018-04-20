@@ -139,8 +139,8 @@ module RubyAsterisk
       request.commands.each do |command|
         @session.write(command)
       end
-      @session.waitfor("Match" => /ActionID: #{request.action_id}.*?\n\n/m, "Timeout" => 10) do |data|
-        request.response_data << data
+      @session.waitfor("Match" => /ActionID: #{request.action_id}.*?\n\n/m, "Timeout" => 10, "Waittime" => 0.1) do |data|
+        request.response_data << data.to_s
       end
       Response.new(command,request.response_data)
     end
